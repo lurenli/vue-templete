@@ -4,7 +4,7 @@
         <!-- <div v-bind:class="{active:isActive,'text-danger':hasError}"></div> -->
 
         <!-- <div v-bind:class="[isActive ? activeClass:'',errorClass]"></div> -->
-        <h2 @click="ToList()">去列表 2222</h2>
+        <h2 @click="ToList()">去列表</h2>
         <ul>
             <li v-for="(item, index) in indexList" :key="index" class="item">
                 <p>{{item.userName?item.userName:item.companyName}}</p>
