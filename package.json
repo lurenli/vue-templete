@@ -78,5 +78,15 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lurenli/vue-templete.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lurenli/vue-templete/issues"
+  },
+  "homepage": "https://github.com/lurenli/vue-templete#readme"
 }
