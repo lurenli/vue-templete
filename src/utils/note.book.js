@@ -105,45 +105,69 @@ var newArr2 = oldArr2.map(function (value, index, arr) {
 console.log(oldArr2); //原数组
 console.log(newArr2); //改变之后的数组
 
+ES6 常用语法
+let const
+const (声明常量) 一旦声明 立即要初始化 不能改变的是指向的地址，里面的值还是能变的。
+4.想将对象冻结，可以使用const foo = Object.freeze({});
+结构赋值
+模板字符串
+箭头函数
+拷贝  Object.assign()  {...obj } JSON.parse(JSON.stringify(data)
+Number 的扩展方法  Number.parseInt(), Number.parseFloat()
+Math 的扩展方法  Math.trunc方法用于去除一个数的小数部分，返回整数部分。Math.sign方法用来判断一个数到底是正数、负数、还是零
+Array.from方法用于将两类对象转为真正的数组
+增加了函数参数的默认值 如
+function log(x, y = 'World') {
+        console.log(x, y);
+    }
+合并数组[...arr1, ...arr2, ...arr3]
+
+    ES7 常用语法
+1.Arr.includes() 判断是否存在 存在返回true否则false
+2.a ** b  相当于  Math.pow(a, b)
+3.Object.keys()
+ES8 常用语法
+1.async / await
+2.Object.values()
 
 
- //显示列按钮
- //可以选择多个按钮的时候 
- SelectItem(event, value, index, type) {
+//显示列按钮
+//可以选择多个按钮的时候 
+SelectItem(event, value, index, type) {
     let classList = event.target.classList;
 
     let selectArr = this[type + 'selectButtonList']
 
     // contains方法用来查看dom元素的包含关系
-    if (!classList.contains("el-button--info")) {
-        if (selectArr.length < 10) {
-            classList.remove("el-button--primary");
-            //添加选中样式和数组对象
-            classList.add("el-button--info");
-            selectArr.push({
-                show: true,
-                name: value.name
-            });
-            value.show == true ? value.show = false : value.show = true
-        } else {
-            this.$message({
-                type: 'error',
-                message: '最多添加10个标签,请删除后重试'
-            })
-        }
-    } else {
-        classList.remove("el-button--info");
-        classList.add("el-button--primary");
-        // value.show = !value.show
+    if(!classList.contains("el-button--info")) {
+    if (selectArr.length < 10) {
+        classList.remove("el-button--primary");
+        //添加选中样式和数组对象
+        classList.add("el-button--info");
+        selectArr.push({
+            show: true,
+            name: value.name
+        });
         value.show == true ? value.show = false : value.show = true
-        this.TrimData = []
-        selectArr.map((item, index) => {
-            if (item.name == value.name) {
-                selectArr.splice(index, 1)
-                this.TrimData.push({ name: value.name, show: false })
-            }
+    } else {
+        this.$message({
+            type: 'error',
+            message: '最多添加10个标签,请删除后重试'
         })
     }
+} else {
+    classList.remove("el-button--info");
+    classList.add("el-button--primary");
+    // value.show = !value.show
+    value.show == true ? value.show = false : value.show = true
+    this.TrimData = []
+    selectArr.map((item, index) => {
+        if (item.name == value.name) {
+            selectArr.splice(index, 1)
+            this.TrimData.push({ name: value.name, show: false })
+        }
+    })
+}
 },
 
 
@@ -324,13 +348,13 @@ function browserRedirect() {
 css 难点属性
 
 划线
-h1 {text-decoration:overline;} 上面
-h2 {text-decoration:line-through;} 中间
-h3 {text-decoration:underline;} 下面
+h1 { text - decoration: overline; } 上面
+h2 { text - decoration: line - through; } 中间
+h3 { text - decoration: underline; } 下面
 
 1.画三角形
 
-.d2{
+    .d2{
     width: 0;
     height: 0;
     border - width: 100px;
@@ -338,18 +362,32 @@ h3 {text-decoration:underline;} 下面
     border - color:#FFCCCC #0099CC #996699 #339933;
 }
 css3
+windowScroll() {
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    //变量windowHeight是可视区的高度
+    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    //变量scrollHeight是滚动条的总高度
+    var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    //滚动条到底部的条件
+    if (scrollTop + windowHeight == scrollHeight) {
+        //加载页数
+        this.getcard();
+    }
+},
 
+@media screen and(min - width: 1704px) and(max - width: 1915px) { }
+@media only screen and(max - width: 1552px) { }
 从上到下的线性渐变：
-background-image: linear-gradient(direction, color-stop1, color-stop2, ...);
+background - image: linear - gradient(direction, color - stop1, color - stop2, ...);
 
 从左到右的线性渐变：
 #grad {
-  height: 200px;
-  background-image: linear-gradient(to right, red , yellow);
+    height: 200px;
+    background - image: linear - gradient(to right, red, yellow);
 }
 
 2D
-transform   
+transform
 translate() //根据左(X轴)和顶部(Y轴)位置给定的参数，从当前元素位置移动。
 rotate() //在一个给定度数顺时针旋转的元素。负值是允许的，这样是元素逆时针旋转。
 scale() // 该元素增加或减少的大小，取决于宽度（X轴）和高度（Y轴）的参数：
@@ -359,42 +397,42 @@ matrix() //方法有六个参数，包含旋转，缩放，移动（平移）和
 3D
 transform: rotateX(120deg);
 
- 
+
 // 属性设置元素的垂直对齐方式
-vertical-align:middle 
+vertical - align: middle
 // 在父元素定义了line-height的条件下，vertical-align的作用是让（inline/inline-block）子元素依据父元素的基点对齐。
 
 flex 布局
 
-flex-direction   
+flex - direction
 row（默认值）：主轴为水平方向，起点在左端。
-row-reverse：主轴为水平方向，起点在右端。
+row - reverse：主轴为水平方向，起点在右端。
 column：主轴为垂直方向，起点在上沿。
-column-reverse：主轴为垂直方向，起点在下沿。
+column - reverse：主轴为垂直方向，起点在下沿。
 
 
-flex-wrap: nowrap | wrap | wrap-reverse; 是否换行
+flex - wrap: nowrap | wrap | wrap - reverse; 是否换行
 
-justify-content：flex-start | flex-end | center | space-between | space-around; 属性定义了项目在主轴上的对齐方式。
+justify - content：flex - start | flex - end | center | space - between | space - around; 属性定义了项目在主轴上的对齐方式。
 
-align-items：flex-start | flex-end | center | baseline | stretch; 属性定义项目在交叉轴上如何对齐。
+align - items：flex - start | flex - end | center | baseline | stretch; 属性定义项目在交叉轴上如何对齐。
 
-align-content: flex-start | flex-end | center | space-between | space-around | stretch;属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用
+align - content: flex - start | flex - end | center | space - between | space - around | stretch; 属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用
 
 flex ：1
 
-align-self：auto | flex-start | flex-end | center | baseline | stretch;属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto
+align - self：auto | flex - start | flex - end | center | baseline | stretch; 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align - items属性。默认值为auto
 
 
-obj-fit:fill || cover || contain || none || scale-down
+obj - fit: fill || cover || contain || none || scale - down
 
-被替换的内容将被缩放，以在填充元素的内容框时保持其宽高比 contain 
+被替换的内容将被缩放，以在填充元素的内容框时保持其宽高比 contain
 
 被替换的内容在保持其宽高比的同时填充元素的整个内容框 cover
 
 被替换的内容正好填充元素的内容框 fill
 
-内容的尺寸与 none 或 contain 中的一个相同，取决于它们两个之间谁得到的对象尺寸会更小一些。 scale-down
+内容的尺寸与 none 或 contain 中的一个相同，取决于它们两个之间谁得到的对象尺寸会更小一些。 scale - down
 
 
 正则
@@ -409,17 +447,18 @@ let Pattern = {
     isAuthCode: /^[0-9]{6}$/,
     isTelAndMobile: /^(1[3|4|5|7|8][\d]{9}|0[\d]{2,3}-[\d]{7,8}|400[-]?[\d]{3}[-]?[\d]{4})$/,
     isMail: /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/,  //邮箱
-  }
-  数字：^[0-9]*$    0或正整数  /^([0]|[1-9]\d*)$/
-  零和非零开头的数字：^(0|[1-9][0-9]*)$
-  非零的正整数 ^\+?[1-9][0-9]*$
+}
+数字：^ [0 - 9] * $    0或正整数 /^ ([0] | [1 - 9]\d *) $ /
+    零和非零开头的数字：^ (0 | [1 - 9][0 - 9] *)$
+非零的正整数 ^\+? [1 - 9][0 - 9] * $
   汉字：/^[\u4e00-\u9fa5]+$/
-  只能输入汉字数字集合 /^[0-9\u4e00-\u9fa5]+$/
-  英文和数字：^[A-Za-z0-9]+$ 或 /^[0-9a-zA-Z]+$/
-  手机号码：^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$
-  密码(以字母开头，长度在6~18之间，只能包含字母、数字和下划线)：^[a-zA-Z]\w{5,17}$
-  大小写英文、中文、数字 /^[0-9a-zA-Z\u4e00-\u9fa5]+$/ 
-  身份证号  /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
-  数字且开始不能为0 /^(?!0)[0-9]+$/
-  QQ号码 /[1-9][0-9]{4,}/
-  邮箱 /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
+只能输入汉字数字集合 /^ [0 - 9\u4e00 - \u9fa5] + $ /
+    英文和数字：^ [A - Za - z0 - 9] + $ 或 /^ [0 - 9a - zA - Z] + $ /
+        手机号码：^ (13[0 - 9] | 14[5 | 7] | 15[0 | 1 | 2 | 3 | 5 | 6 | 7 | 8 | 9] | 18[0 | 1 | 2 | 3 | 5 | 6 | 7 | 8 | 9]) \d{ 8 } $
+密码(以字母开头，长度在6~18之间，只能包含字母、数字和下划线) ：^ [a - zA - Z]\w{ 5, 17 } $
+大小写英文、中文、数字 /^ [0 - 9a - zA - Z\u4e00 - \u9fa5] + $ /
+    身份证号 /^ [1 - 9]\d{ 7 } ((0\d)| (1[0 - 2])) (([0 | 1 | 2]\d)| 3[0 - 1]) \d{ 3 } $ |^ [1 - 9]\d{ 5 } [1 - 9]\d{ 3 } ((0\d)| (1[0 - 2])) (([0 | 1 | 2]\d)| 3[0 - 1]) \d{ 3 } ([0 - 9] | X)$ /
+        数字且开始不能为0 /^ (? !0)[0 - 9] + $ /
+        QQ号码 / [1 - 9][0 - 9]{ 4,} /
+邮箱 /^ [a - z0 - 9] + ([._\\-] * [a - z0 - 9]) *@([a - z0 - 9] + [-a - z0 - 9] * [a - z0 - 9] +.) { 1, 63 } [a - z0 - 9] + $ /
+

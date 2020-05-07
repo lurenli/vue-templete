@@ -9,7 +9,9 @@
         {{a}} {{b}}
 
         <div class="sjx"></div>
-        <div  class="left" ></div>
+        <div class="left"></div>
+        <label for="fileExcel" class="upload_file">选取文件</label>
+        <input id="fileExcel" ref="referenceUpload" accept=".xls,.xlsx" type="file" style="display:none" @change="(e) => ImportData(e)">
     </div>
 </template>
 <script>
@@ -81,6 +83,42 @@ export default {
 
     },
     methods: {
+        async ImportData(e) {
+            // this.$refs.referenceUpload.value = null;
+            this.ImportTemplateShow = false;
+            this.FileName = '';
+            let time, importData;
+            this.formData = '';
+            const self = this;
+            const files = e.target.files[0];
+            const type = files.name.slice('-3');
+            const newtype = files.name.slice('-4');
+            if (files.size > 20 * 1024 * 1024) {
+                this.$message({
+                    type: 'error',
+                    message: '上传失败,请上传20M以下的文件!'
+                });
+                this.$nextTick(() => {
+                    self.$refs.referenceUpload.value = null;
+                });
+                return;
+            } else if (type === 'xls') {
+                this.FileName = files.name;
+                this.successShow = true;
+                this.DefineShow = false;
+                const formData = new FormData();
+                formData.append('file', files);
+                this.formData = formData;
+            } else {
+                this.$message({
+                    type: 'error',
+                    message: '上传失败，请上传表头正确的xls格式文件'
+                });
+                this.$nextTick(() => {
+                    self.$refs.referenceUpload.value = null;
+                });
+            }
+        },
         async testAsync() {
             return 'hello async'
         },
@@ -107,7 +145,7 @@ h2 {
     font-weight: bold;
 }
 .sjx {
-    margin:0 auto;
+    margin: 0 auto;
     // transparent透明的意思
     width: 0;
     height: 0;
@@ -120,7 +158,7 @@ h2 {
 
 .left {
     position: absolute;
-    left:40%;
+    left: 40%;
 }
 .left:before,
 .left:after {
