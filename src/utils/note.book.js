@@ -33,7 +33,7 @@ const routes = [
     }
 ]
 
-
+  // babel-core babel-loader  es6 编译器
 
 watch 为了监听某个响应数据的变化。
 computed 是自动监听依赖值的变化，从而动态返回内容，主要目的是简化模板内的复杂运算。所以区别来源于用法，只是需要动态值，那就用 computed ；
@@ -77,6 +77,32 @@ const a = await Promise.resolve('hello world');
 const a = 'hello world';
 
 // js
+浏览器可视区域的宽高 document.body.clientWidth/clientHeight || document.documentElement.clientHeight
+获取滚动条相对于顶部的高度 document.body.scrollTop || document.documentElement.scrollTop
+
+clientHeight: 表示的是可视区域的高度, 不包含border和滚动条
+offsetHeight: 表示可是区域的高度, 包含了border和滚动条
+scrollHeight: 表示了所有区域的高度, 包含了滚动条被隐藏的部分
+clientTop: 表示边框border的厚度, 在为指定的情况下,一般为0
+scrollTop: 滚动后被隐藏的高度, 获取对象相对于offsetParent属性指定的父坐标距离顶部的距离
+
+let query = Object.assign({}, params, { access_token: getToken('_token') })
+window.location.href = `${CONFIG.baseUrl}api-project/project/exportProjectExcel?${qs.stringify(query)}`
+
+
+window.onload和DOMContentLoaded的区别
+window.addEventListener(‘load’,function(){
+//页面的所有资源加载完才会执行, 包括图片和视频等
+})
+document.addEventListener(‘DOMContentLoaded’,function(){
+//DOM渲染完即可执行, 此时图片,视频还可能没有加载完成
+})
+Array.prototype.slice.call( 伪数组名称 ) 将伪数组转换为真数组
+
+面向对象
+
+
+
 foreach  map 区别
 foreach 不能返回修改之后的新数组
 var oldArr = [1, 2, 3, 4, 5];
@@ -102,6 +128,9 @@ var newArr2 = oldArr2.map(function (value, index, arr) {
     return value * 10
 
 })
+some()  some表示只要有一项满足就可以
+every()表示必须每每每一项满足就可以返回true
+
 console.log(oldArr2); //原数组
 console.log(newArr2); //改变之后的数组
 

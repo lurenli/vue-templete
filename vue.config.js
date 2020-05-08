@@ -209,3 +209,8 @@
 //       );
 //   }
 // };
+
+module.exports={
+    //是开发模式的时候，获取当前路径下的地址，是测试或者开发模式的时候，用/获取地址
+      baseUrl:process.env.NODE_ENV==='production'?'./':'/'
+}    

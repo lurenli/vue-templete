@@ -68,7 +68,20 @@ export default {
         }
     },
     created() {
+        // this.$moment('2018-09-19T05:54:32.767Z').format("YYYY-DD-MM")
 
+        let person = new this.SetFunction('bob') //构造函数
+        console.log(person)
+
+        let items = [12, 548 , 'a' , 2 , 5478 , 'foo' , 8852, , 'Doe' , 2145 , 119];
+        let  randomItem = items[Math.floor(Math.random() * items.length)];   //Math.floor(Math.random()*10);    // 可均衡获取 0 到 9 的随机整数。
+
+        let spArr = [1,2,34,45]
+        spArr.splice(1,2) //索引 索引开始的数量  新值
+        console.log(spArr)
+
+        console.log(randomItem)
+        console.log(this.MathRom(2,15))
         // new操作符具体干了什么呢?其实很简单，就干了三件事情。
         // (创建一个空对象，并使该空对象继承Func.prototype，执行构造函数，并将this指向刚刚创建的新对象,返回新对象)
         //   var obj  = {}; obj.__proto__ = Base.prototype; Base.call(obj);  
@@ -139,6 +152,12 @@ export default {
         //findIndex() 方法返回传入一个测试条件（函数）符合条件的数组第一个元素位置。(每个元素都会走一次)
         //trim(); //干掉字符串两端的空格
         // reverse //反转数组
+
+        // 去除字符串内所有的空格：str = str.replace(/\s*/g, "");
+        // 去除字符串内两头的空格：str = str.replace(/^\s*|\s*$/g, "");
+        // 去除字符串内左侧的空格：str = str.replace(/^\s*/, "");
+        // 去除字符串内右侧的空格：str = str.replace(/(\s*$)/g, "");
+
         let name = 'aaa bbb ccc'; //字符串中所有单词的首字母都转换为大写
         let uw = name.replace(/\b\w+\b/g, function (word) {
             return word.substring(0, 1).toUpperCase() + word.substring(1);        }
@@ -222,6 +241,17 @@ export default {
         window.removeEventListener('resize', this.handleResize)
     },
     methods: {
+        MathRom(min,max){
+            // Math.random() 0 - 1
+            return Math.floor(min + Math.random() * (max - min));
+        },
+        SetFunction(name) {
+            let self = this
+            self.name = name;
+            self.greeting = function () {
+                console.log('构造函数')
+            };
+        },
         // 去重
         KillRepeat(val) {
             // 传进来的值 和数组里面的比较 //历史记录的使用
@@ -298,6 +328,11 @@ export default {
                 clearInterval(self.timer);
             }
             this.isTop = false;
+        },
+        handleResize(){
+            window.screenWidth = window.innerWidth // 窗口大小
+            let windowWidth = window.screenWidth
+            console.log(windowWidth)
         },
         EndTimeFunction() {
             let self = this
