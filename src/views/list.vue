@@ -7,11 +7,13 @@
         </div>
         <listIframe />
         {{a}} {{b}}
-
+        {{a | capitalize}}
         <div class="sjx"></div>
         <div class="left"></div>
         <label for="fileExcel" class="upload_file">选取文件</label>
         <input id="fileExcel" ref="referenceUpload" accept=".xls,.xlsx" type="file" style="display:none" @change="(e) => ImportData(e)">
+
+        <inpu v-IntNumber type="text"/>
     </div>
 </template>
 <script>
@@ -81,6 +83,10 @@ export default {
         console.log(oldArr2); //原数组
         console.log(newArr2); //改变之后的数组
 
+    },
+    filters: {
+        capitalize(value) {
+        }
     },
     methods: {
         async ImportData(e) {

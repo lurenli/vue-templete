@@ -16,7 +16,33 @@ getters
 全局指令 Vue.directive
 
 keep - alive是 Vue 内置的一个组件，可以使被包含的组件保留状态，或避免重新渲染。
+
+//加了keep-alive的初始化函数
+activated() {
+    this.keyword = this.$route.params.keyword;
+    this.bar = this.$route.params.type;
+    this.$store.dispatch("common/ChangeBar", this.bar);
+    this.getkeyWordData("all", 1);
+},
+
+npm install -g cnpm --registry=https://registry.npm.taobao.org //淘宝镜像
+
+
 mixins 混入(mixins)
+
+<transition name="fade"></transition>
+//定义进入和离开时候的过渡
+.fade-enter-active ,
+.fade-leave-active {
+		transition:all 0.2s ease;
+		position:absolute;
+}
+//定义进入过渡的开始状态和离开过渡的结束状态
+.fade-enter,
+.fade-leave-to {
+		opcity:0;
+		transfrom:translateX(100px);
+}
 
 
 $route是“路由信息对象”，包括path，params，hash，query，fullPath，matched，name等路由信息参数。
@@ -33,7 +59,7 @@ const routes = [
     }
 ]
 
-  // babel-core babel-loader  es6 编译器
+// babel-core babel-loader  es6 编译器
 
 watch 为了监听某个响应数据的变化。
 computed 是自动监听依赖值的变化，从而动态返回内容，主要目的是简化模板内的复杂运算。所以区别来源于用法，只是需要动态值，那就用 computed ；
@@ -77,31 +103,80 @@ const a = await Promise.resolve('hello world');
 const a = 'hello world';
 
 // js
-浏览器可视区域的宽高 document.body.clientWidth/clientHeight || document.documentElement.clientHeight
+let formData = new FormData();
+formData.append("file", file);
+
+浏览器可视区域的宽高 document.body.clientWidth / clientHeight || document.documentElement.clientHeight
 获取滚动条相对于顶部的高度 document.body.scrollTop || document.documentElement.scrollTop
+windowScroll() {
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    //变量windowHeight是可视区的高度
+    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    //变量scrollHeight是滚动条的总高度
+    var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    //滚动条到底部的条件
+    if (scrollTop + windowHeight == scrollHeight) {
+        //加载页数
+        this.getcard();
+    }
+},
 
 clientHeight: 表示的是可视区域的高度, 不包含border和滚动条
 offsetHeight: 表示可是区域的高度, 包含了border和滚动条
 scrollHeight: 表示了所有区域的高度, 包含了滚动条被隐藏的部分
-clientTop: 表示边框border的厚度, 在为指定的情况下,一般为0
+clientTop: 表示边框border的厚度, 在为指定的情况下, 一般为0
 scrollTop: 滚动后被隐藏的高度, 获取对象相对于offsetParent属性指定的父坐标距离顶部的距离
 
 let query = Object.assign({}, params, { access_token: getToken('_token') })
 window.location.href = `${CONFIG.baseUrl}api-project/project/exportProjectExcel?${qs.stringify(query)}`
 
 
+encodeURIComponent()编码
+decodeURIComponent()解码
+setInterval(() => {
+
+}, 1000);
+
+clearInterval(() => {
+
+}, 1000);
+//封装获取非行间样式的js代码
+function getStyle(obj, name) {
+    if (obj.currentStyle) {
+        //ie
+        return obj.currentStyle[name];
+    } else {
+        //firefox
+        return getComputedStyle(obj, false)[name];
+    }
+}
+
+var oDiv = document.getElementById("div");
+alert(getStyle(oDiv, 'width'));
+
 window.onload和DOMContentLoaded的区别
-window.addEventListener(‘load’,function(){
-//页面的所有资源加载完才会执行, 包括图片和视频等
+window.addEventListener(‘load’, function () {
+    //页面的所有资源加载完才会执行, 包括图片和视频等
 })
-document.addEventListener(‘DOMContentLoaded’,function(){
-//DOM渲染完即可执行, 此时图片,视频还可能没有加载完成
+document.addEventListener(‘DOMContentLoaded’, function () {
+    //DOM渲染完即可执行, 此时图片,视频还可能没有加载完成
 })
-Array.prototype.slice.call( 伪数组名称 ) 将伪数组转换为真数组
+Array.prototype.slice.call(伪数组名称) 将伪数组转换为真数组
 
 面向对象
 
 
+const formData = new FormData();
+formData.append('token', response.data.qiniu_token);
+formData.append('key', response.data.qiniu_key);
+formData.append('file', blobInfo.blob(), url);
+
+//通过get方法对值进行读取
+console.log(formdata.get("name"));//laotie
+//通过set方法对值进行设置
+formdata.set("name", "laoliu");
+formData.delete("k1"); //删除
+console.log(formdata.get("name"));//laoliu
 
 foreach  map 区别
 foreach 不能返回修改之后的新数组
@@ -136,6 +211,8 @@ console.log(newArr2); //改变之后的数组
 
 ES6 常用语法
 let const
+
+
 const (声明常量) 一旦声明 立即要初始化 不能改变的是指向的地址，里面的值还是能变的。
 4.想将对象冻结，可以使用const foo = Object.freeze({});
 结构赋值
@@ -262,7 +339,30 @@ $('.list').on('click', '.page', function () {
 // header 后台
 header('Access-Control-Allow-Origin:*');//允许所有来源访问  CORS                                
 header('Access-Control-Allow-Method:POST,GET');//允许访问的方式 　
-JSONP(jsonp缺点：只能实现get一种请求。)
+JSONP(jsonp缺点：只能实现get一种请求。)   <script>标签的src属性并不被同源策略所约束，所以可以获取任何服务器上脚本并执行。
+
+<script type="text/javascript">
+   //添加<script>标签的方法
+   function addScriptTag(src){
+       var script = document.createElement('script');
+       script.setAttribute("type","text/javascript");
+       script.src = src;
+       document.body.appendChild(script);
+   }
+   
+   window.onload = function(){
+       //搜索apple，将自定义的回调函数名result传入callback参数中
+       addScriptTag("http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=apple &callback=result");
+       
+   }
+   //自定义的回调函数result
+   function result(data) {
+       //我们就简单的获取apple搜索结果的第一条记录中url数据
+       alert(data.responseData.results[0].unescapedUrl);
+   }
+</script>
+
+
 var script = document.createElement('script');
 script.type = 'text/javascript';
 script.src = 'http://www.domain2.com:8080/login?user=admin&callback=handleCallback';
@@ -391,18 +491,8 @@ h3 { text - decoration: underline; } 下面
     border - color:#FFCCCC #0099CC #996699 #339933;
 }
 css3
-windowScroll() {
-    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    //变量windowHeight是可视区的高度
-    var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
-    //变量scrollHeight是滚动条的总高度
-    var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-    //滚动条到底部的条件
-    if (scrollTop + windowHeight == scrollHeight) {
-        //加载页数
-        this.getcard();
-    }
-},
+
+transition: all 0.2s
 
 @media screen and(min - width: 1704px) and(max - width: 1915px) { }
 @media only screen and(max - width: 1552px) { }

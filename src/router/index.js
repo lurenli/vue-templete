@@ -27,7 +27,7 @@ const router = new Router({
   ]
 })
 
-
+// beforeEnter  beforeLeave  beforeRouteEnter beforeRouteLeave
 // router.beforeEach((to, from, next) => {
 //   //判断是否需要登陆验证
 //   if (to.meta.requiresAuth) {
