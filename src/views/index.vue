@@ -69,7 +69,9 @@ export default {
     },
     created() {
         // this.$moment('2018-09-19T05:54:32.767Z').format("YYYY-DD-MM")
-
+        let b 
+        // console.log(a)
+        console.log(b)
         let person = new this.SetFunction('bob') //构造函数
         console.log(person)
 

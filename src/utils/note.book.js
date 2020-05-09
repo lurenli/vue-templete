@@ -58,7 +58,12 @@ const routes = [
         ]
     }
 ]
-
+FilterMonthTime(value) {
+    let str = "年|月";
+    let newMonThTime = value.replace(new RegExp("(" + str + ")", "g"), "-");
+    return newMonThTime + "01";
+},
+obj.value.Replace("a","d") //替换
 // babel-core babel-loader  es6 编译器
 
 watch 为了监听某个响应数据的变化。
@@ -102,9 +107,25 @@ const a = await Promise.resolve('hello world');
 // 跟同步代码是一样的，还不如省事点，直接去掉await关键字
 const a = 'hello world';
 
+href="javascript:void(0)"
+
 // js
+
+$(".btnQqLogin").click(function () {
+    top.location.href =
+        "https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101524859&redirect_uri=http://www.guomanmeng.com/api/qq.html?page=register&scope=get_user_info";
+});
+//微博登录
+$(".btnWBLogin").click(()=>{
+    top.location.href =
+        "https://api.weibo.com/oauth2/authorize?client_id=3160928989&redirect_uri=http://www.guomanmeng.com/api/weibo.html&response_type=code";
+})
+
+
 let formData = new FormData();
 formData.append("file", file);
+
+// ?imageView2/1/w/240/h/240/format/jpg/q/90
 
 浏览器可视区域的宽高 document.body.clientWidth / clientHeight || document.documentElement.clientHeight
 获取滚动条相对于顶部的高度 document.body.scrollTop || document.documentElement.scrollTop
